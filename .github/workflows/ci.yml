@@ -1,0 +1,25 @@
+name: Portfolio Site CI (make sure nothing crashes)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # Client
+      - name: Client install
+        working-directory: .
+        run: npm ci 
+
+      - name: Client build
+        working-directory: .
+        run: npm run build
